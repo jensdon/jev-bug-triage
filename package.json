@@ -1,0 +1,15 @@
+{
+    "type": "module",
+    "scripts": {
+        "test": "playwright test",
+        "typecheck": "tsc"
+    },
+    "dependencies": {
+        "@typesafe-ai/sdk": "^0.6.0"
+    },
+    "devDependencies": {
+        "@playwright/test": "^1.64.0",
+        "@types/node": "^26.6.4",
+        "typescript": "^7.0.2"
+    }
+}

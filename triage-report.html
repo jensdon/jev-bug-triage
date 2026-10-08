@@ -1,0 +1,36 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Triage report</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.5.0/chart.umd.min.js"></script>
+<body style="font-family: system-ui; max-width: 480px; margin: 32px auto">
+    <h1>Triage of <span id="total"></span> failed tests</h1>
+    <canvas id="chart"></canvas>
+    <script>
+        // Filled in by triage-reporter.ts, e.g. { "Product bug": 2, "System issue": 1 }
+        const counts = /* COUNTS */ { "Product bug": 2, "Automation issue": 1 };
+
+        // Fixed colour per category, so a category keeps its colour between runs; unknown ones are grey
+        const colors = {
+            "To investigate": "#2a78d6",
+            "Product bug": "#eb6834",
+            "Automation issue": "#1baf7a",
+            "System issue": "#eda100",
+        };
+
+        const labels = Object.keys(counts);
+        document.getElementById("total").textContent = Object.values(counts).reduce((a, b) => a + b, 0);
+        new Chart(chart, {
+            type: "doughnut",
+            data: {
+                labels: labels.map((c) => `${c} (${counts[c]})`),
+                datasets: [
+                    {
+                        data: labels.map((c) => counts[c]),
+                        backgroundColor: labels.map((c) => colors[c] ?? "#9a9a94"),
+                    },
+                ],
+            },
+            options: { plugins: { legend: { position: "right" } } },
+        });
+    </script>
+</body>
